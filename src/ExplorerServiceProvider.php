@@ -30,7 +30,7 @@ class ExplorerServiceProvider extends ServiceProvider
         }
 
         $this->app->bind(ElasticClientFactory::class, function () {
-            $client = ClientBuilder::create()->setHosts([config('explorer.connection')]);
+            $client = ClientBuilder::create()->setHosts([config('explorer.connection.host')]);
 
             if(config()->has('explorer.connection.api')) {
                 $client->setApiKey(
