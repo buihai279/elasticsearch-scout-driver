@@ -30,14 +30,10 @@ class ExplorerServiceProvider extends ServiceProvider
         }
 
         $this->app->bind(ElasticClientFactory::class, function () {
-            $client = ClientBuilder::create()->setHosts([config('explorer.connection.host')]);
-
-            if(config()->has('explorer.connection.api')) {
-                $client->setApiKey(
-                    config('explorer.connection.api.id'),
-                    config('explorer.connection.api.key')
-                );
-            }
+            $client = ClientBuilder::create()
+                ->setHosts([config('explorer.connection.scheme') . '://' . config('explorer.connection.host') . ':' . config('explorer.connection.port')])
+                ->setSSLVerification(config('explorer.ssl_verification'))
+                ->setBasicAuthentication(config('explorer.auth.username'), config('explorer.auth.password'));
 
             return new ElasticClientFactory($client->build());
         });
@@ -110,8 +106,8 @@ class ExplorerServiceProvider extends ServiceProvider
         ], 'explorer.config');
 
         $this->commands([
-             ElasticSearch::class,
-             ElasticUpdate::class,
-         ]);
+            ElasticSearch::class,
+            ElasticUpdate::class,
+        ]);
     }
 }
