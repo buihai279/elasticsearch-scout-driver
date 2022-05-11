@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace JeroenG\Explorer\Infrastructure\Elastic;
 
 use Elastic\Elasticsearch\Client;
-use Elastic\Elasticsearch\Exception\ClientResponseException;
-use Elastic\Elasticsearch\Exception\MissingParameterException;
-use Elastic\Elasticsearch\Exception\ServerResponseException;
 use JeroenG\Explorer\Application\Results;
 use JeroenG\Explorer\Application\SearchCommandInterface;
 
@@ -23,11 +20,6 @@ class Finder
         $this->builder = $builder;
     }
 
-    /**
-     * @throws ClientResponseException
-     * @throws ServerResponseException
-     * @throws MissingParameterException
-     */
     public function find(): Results
     {
         $query = [

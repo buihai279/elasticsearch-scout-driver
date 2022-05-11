@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace JeroenG\Explorer\Infrastructure\Elastic;
 
 use Elastic\Elasticsearch\Client;
-use Elastic\Elasticsearch\Exception\ClientResponseException;
-use Elastic\Elasticsearch\Exception\MissingParameterException;
-use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
 use Http\Promise\Promise;
 use JeroenG\Explorer\Application\DocumentAdapterInterface;
