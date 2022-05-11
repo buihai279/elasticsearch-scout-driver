@@ -1,6 +1,6 @@
 {
-    "name": "jeroen-g/explorer",
-    "description": "Next-gen Elasticsearch driver for Laravel Scout.",
+    "name": "hweihwang/elasticsearch-scout-driver",
+    "description": "Elasticsearch driver for Laravel Scout.",
     "license": "EUPL-1.2",
     "authors": [
         {
