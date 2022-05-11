@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace JeroenG\Explorer\Application;
 
 use Countable;
+use Elastic\Elasticsearch\Response\Elasticsearch;
 
 class Results implements Countable
 {
-    private array $rawResults;
-
-    public function __construct(array $rawResults)
-    {
-        $this->rawResults = $rawResults;
-    }
+    public function __construct(private readonly Elasticsearch $rawResults)
+    {}
 
     public function hits(): array
     {

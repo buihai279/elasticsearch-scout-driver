@@ -7,7 +7,6 @@ namespace JeroenG\Explorer\Infrastructure\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use JeroenG\Explorer\Application\IndexAdapterInterface;
-use JeroenG\Explorer\Application\IndexChangedCheckerInterface;
 use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationInterface;
 use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationRepositoryInterface;
 

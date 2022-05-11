@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace JeroenG\Explorer;
 
-use Elasticsearch\ClientBuilder;
-use Illuminate\Foundation\Application;
+use Elastic\Elasticsearch\ClientBuilder;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use JeroenG\Explorer\Application\DocumentAdapterInterface;
 use JeroenG\Explorer\Application\IndexAdapterInterface;
-use JeroenG\Explorer\Application\IndexChangedCheckerInterface;
 use JeroenG\Explorer\Domain\Aggregations\AggregationSyntaxInterface;
 use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationRepositoryInterface;
 use JeroenG\Explorer\Infrastructure\Console\ElasticSearch;
 use JeroenG\Explorer\Infrastructure\Console\ElasticUpdate;
-use JeroenG\Explorer\Infrastructure\Elastic\ElasticAdapter;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticClientFactory;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticDocumentAdapter;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticIndexAdapter;
-use JeroenG\Explorer\Infrastructure\IndexManagement\ElasticIndexChangedChecker;
 use JeroenG\Explorer\Infrastructure\IndexManagement\ElasticIndexConfigurationRepository;
 use JeroenG\Explorer\Infrastructure\Scout\ElasticEngine;
 use Laravel\Scout\Builder;
@@ -48,13 +45,6 @@ class ExplorerServiceProvider extends ServiceProvider
         $this->app->bind(IndexAdapterInterface::class, ElasticIndexAdapter::class);
 
         $this->app->bind(DocumentAdapterInterface::class, ElasticDocumentAdapter::class);
-
-        $this->app->bind(IndexChangedCheckerInterface::class, ElasticIndexChangedChecker::class);
-
-        $this->app->bind(DeprecatedElasticAdapterInterface::class, function () {
-            $client = ClientBuilder::create()->setHosts([config('explorer.connection')])->build();
-            return new ElasticAdapter($client);
-        });
 
         $this->app->bind(IndexConfigurationRepositoryInterface::class, function () {
             return new ElasticIndexConfigurationRepository(

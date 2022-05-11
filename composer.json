@@ -12,10 +12,10 @@
     "homepage": "https://jeroen-g.github.io/Explorer/",
     "keywords": ["Laravel", "Scout", "Elasticsearch", "Elastic", "search", "Explorer"],
     "require": {
-        "php": "8.0.*||8.1.*",
-        "elasticsearch/elasticsearch": "^7.16",
-        "illuminate/support": "^9.0",
-        "laravel/scout": "^9.0",
+        "php": "^8.1",
+        "elasticsearch/elasticsearch": "^8.2",
+        "illuminate/support": "^9.12",
+        "laravel/scout": "^9.4",
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
@@ -30,15 +30,18 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "JeroenG\\Explorer\\Tests\\": "tests"
-        }
+
     },
     "extra": {
         "laravel": {
             "providers": [
                 "JeroenG\\Explorer\\ExplorerServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": true
         }
     }
 }
