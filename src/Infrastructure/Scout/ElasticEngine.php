@@ -15,6 +15,7 @@ use JeroenG\Explorer\Application\Results;
 use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationRepositoryInterface;
 use Laravel\Scout\Builder;
 use Laravel\Scout\Engines\Engine;
+use Laravel\Scout\Searchable;
 use Webmozart\Assert\Assert;
 
 class ElasticEngine extends Engine
@@ -130,7 +131,7 @@ class ElasticEngine extends Engine
      *
      * @param Builder $builder
      * @param  Results  $results
-     * @param  Model  $model
+     * @param  Model|Searchable  $model
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function map(Builder $builder, $results, $model): Collection
@@ -154,6 +155,13 @@ class ElasticEngine extends Engine
         })->values();
     }
 
+    /**
+     * Get the total count from a raw result returned by the engine.
+     * @param Builder $builder
+     * @param $results
+     * @param Model|Searchable $model
+     * @return LazyCollection
+     */
     public function lazyMap(Builder $builder, $results, $model): LazyCollection
     {
         Assert::isInstanceOf($results, Results::class);
@@ -189,9 +197,9 @@ class ElasticEngine extends Engine
     }
 
     /**
-     * Flush all of the model's records from the engine.
+     * Flush all the model's records from the engine.
      *
-     * @param  Model  $model
+     * @param  Model|Searchable  $model
      * @return void
      */
     public function flush($model): void
