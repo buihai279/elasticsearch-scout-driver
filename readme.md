@@ -10,7 +10,7 @@ Next-gen Elasticsearch driver for Laravel Scout with the power of Elasticsearch'
 Via Composer
 
 ``` bash
-composer require jeroen-g/explorer
+composer require hweihwang/elasticsearch-scout-driver
 ```
 
 You will need the configuration file to define your indexes:
@@ -111,6 +111,6 @@ MIT. Please see the [license file](license.md) for more information.
 [ico-actions]: https://img.shields.io/github/workflow/status/Jeroen-G/explorer/CI?label=CI%2FCD&style=flat-square
 
 [link-actions]: https://github.com/Jeroen-G/explorer/actions?query=workflow:CI
-[link-packagist]: https://packagist.org/packages/jeroen-g/explorer
+[link-packagist]: https://packagist.org/packages/hweihwang/elasticsearch-scout-driver
 [link-author]: https://github.com/jeroen-g
 [link-contributors]: ../../contributors

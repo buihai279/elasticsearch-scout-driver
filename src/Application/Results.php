@@ -6,6 +6,7 @@ namespace JeroenG\Explorer\Application;
 
 use Countable;
 use Elastic\Elasticsearch\Response\Elasticsearch;
+use Illuminate\Support\Collection;
 
 class Results implements Countable
 {
@@ -15,6 +16,13 @@ class Results implements Countable
     public function hits(): array
     {
         return $this->rawResults['hits']['hits'];
+    }
+
+    public function get(): Collection
+    {
+        return collect($this->hits())->map(function ($hit) {
+            return $hit['_source'];
+        });
     }
 
     /** @return AggregationResult[] */
