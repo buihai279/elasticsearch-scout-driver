@@ -18,6 +18,8 @@ use JeroenG\Explorer\Infrastructure\Elastic\ElasticDocumentAdapter;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticIndexAdapter;
 use JeroenG\Explorer\Infrastructure\IndexManagement\ElasticIndexConfigurationRepository;
 use JeroenG\Explorer\Infrastructure\Scout\ElasticEngine;
+use JeroenG\Explorer\Infrastructure\Scout\Mixins\BaseScoutBuilderMacros;
+use JeroenG\Explorer\Infrastructure\Scout\Mixins\ScoutBuilderMacros;
 use Laravel\Scout\Builder;
 use Laravel\Scout\EngineManager;
 
@@ -78,6 +80,12 @@ class ExplorerServiceProvider extends ServiceProvider
             return $this;
         });
 
+        Builder::macro('fields', function (array $fields) {
+            $this->fields = $fields;
+
+            return $this;
+        });
+
         Builder::macro('newCompound', function ($compound) {
             $this->compound = $compound;
             return $this;
@@ -87,6 +95,11 @@ class ExplorerServiceProvider extends ServiceProvider
             $this->aggregations[$name] = $aggregation;
             return $this;
         });
+
+        $this->app->singleton(BaseScoutBuilderMacros::class, ScoutBuilderMacros::class);
+        $this->app->singleton('ScoutBuilderMacros', ScoutBuilderMacros::class);
+
+        Builder::mixin($this->app->make('ScoutBuilderMacros'));
     }
 
     public function register(): void
