@@ -6,6 +6,7 @@ namespace JeroenG\Explorer\Application\Operations\Bulk;
 
 use JeroenG\Explorer\Application\BePrepared;
 use JeroenG\Explorer\Application\Explored;
+use JeroenG\Explorer\Application\ManuallyIndexable;
 
 final class BulkUpdateOperation implements BulkOperationInterface
 {
@@ -59,7 +60,12 @@ final class BulkUpdateOperation implements BulkOperationInterface
 
     private static function modelToData(Explored $model): array
     {
-        $searchable = $model->toSearchableArray();
+        if ($model instanceof ManuallyIndexable) {
+            $searchable = $model->getIndexableData();
+        } else {
+            $searchable = $model->toSearchableArray();
+        }
+
         if ($model instanceof BePrepared) {
             $searchable = $model->prepare($searchable);
         }
