@@ -24,7 +24,7 @@ final class ElasticUpdate extends Command
 
         /** @var IndexConfigurationInterface $allConfigs */
         $allConfigs = is_null($index) ?
-            $indexConfigurationRepository->getConfigurations() : $indexConfigurationRepository->findForIndex($index);
+            $indexConfigurationRepository->getConfigurations() : [$indexConfigurationRepository->findForIndex($index)];
 
         foreach ($allConfigs as $config) {
             $this->updateIndex($config, $indexAdapter);

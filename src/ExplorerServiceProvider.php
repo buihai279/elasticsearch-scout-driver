@@ -14,6 +14,7 @@ use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationRepositoryInterfac
 use JeroenG\Explorer\Infrastructure\Console\ElasticSearch;
 use JeroenG\Explorer\Infrastructure\Console\ElasticUpdate;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticClientFactory;
+use JeroenG\Explorer\Infrastructure\Elastic\ElasticClientBuilder;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticDocumentAdapter;
 use JeroenG\Explorer\Infrastructure\Elastic\ElasticIndexAdapter;
 use JeroenG\Explorer\Infrastructure\IndexManagement\ElasticIndexConfigurationRepository;
@@ -30,12 +31,7 @@ class ExplorerServiceProvider extends ServiceProvider
         }
 
         $this->app->bind(ElasticClientFactory::class, function () {
-            $client = ClientBuilder::create()
-                ->setHosts([config('explorer.connection.scheme') . '://' . config('explorer.connection.host') . ':' . config('explorer.connection.port')])
-                ->setSSLVerification(config('explorer.ssl_verification'))
-                ->setBasicAuthentication(config('explorer.auth.username'), config('explorer.auth.password'));
-
-            return new ElasticClientFactory($client->build());
+            return ElasticClientBuilder::fromConfig(config())->build();
         });
 
         $this->app->bind(IndexAdapterInterface::class, ElasticIndexAdapter::class);
@@ -46,7 +42,6 @@ class ExplorerServiceProvider extends ServiceProvider
             return new ElasticIndexConfigurationRepository(
                 config('explorer.indexes') ?? [],
                 config('explorer.prune_old_aliases'),
-                config('scout.prefix', '')
             );
         });
 
