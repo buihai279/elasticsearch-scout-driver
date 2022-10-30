@@ -21,43 +21,43 @@ final class ElasticClientBuilder
             ARRAY_FILTER_USE_KEY
         );
 
-        $builder->setHosts([$hostConnectionProperties]);
+        $builder->setHosts($hostConnectionProperties);
 
         if ($config->has('explorer.additionalConnections')) {
             $builder->setHosts([$config->get('explorer.connection'), ...$config->get('explorer.additionalConnections')]);
         }
 
-        if($config->has('explorer.connection.api')) {
+        if($config->has('explorer.api')) {
             $builder->setApiKey(
-                $config->get('explorer.connection.api.id'),
-                $config->get('explorer.connection.api.key')
+                $config->get('explorer.api.id'),
+                $config->get('explorer.api.key')
             );
         }
 
-        if($config->has('explorer.connection.elasticCloudId')) {
+        if($config->has('explorer.elasticCloudId')) {
             $builder->setElasticCloudId(
-                $config->get('explorer.connection.elasticCloudId'),
+                $config->get('explorer.elasticCloudId'),
             );
         }
 
-        if($config->has('explorer.connection.auth')) {
+        if($config->has('explorer.auth')) {
             $builder->setBasicAuthentication(
-                $config->get('explorer.connection.auth.username'),
-                $config->get('explorer.connection.auth.password')
+                $config->get('explorer.auth.username'),
+                $config->get('explorer.auth.password')
             );
         }
 
-        if($config->has('explorer.connection.ssl.verify')) {
-            $builder->setSSLVerification($config->get('explorer.connection.ssl.verify'));
+        if($config->has('explorer.ssl.verify')) {
+            $builder->setSSLVerification($config->get('explorer.ssl.verify'));
         }
 
-        if($config->has('explorer.connection.ssl.key')) {
-            [$path, $password] = self::getPathAndPassword($config->get('explorer.connection.ssl.key'));
+        if($config->has('explorer.ssl.key')) {
+            [$path, $password] = self::getPathAndPassword($config->get('explorer.ssl.key'));
             $builder->setSSLKey($path, $password);
         }
 
-        if($config->has('explorer.connection.ssl.cert')) {
-            [$path, $password] = self::getPathAndPassword($config->get('explorer.connection.ssl.cert'));
+        if($config->has('explorer.ssl.cert')) {
+            [$path, $password] = self::getPathAndPassword($config->get('explorer.ssl.cert'));
             $builder->setSSLCert($path, $password);
         }
 
