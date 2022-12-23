@@ -14,7 +14,7 @@ final class ElasticClientBuilder
     public static function fromConfig(Repository $config): ClientBuilder
     {
         $builder = ClientBuilder::create();
-        
+    
         $hostConnectionProperties = array_filter(
             $config->get('explorer.connection'),
             static fn($key) => in_array($key, self::HOST_KEYS, true),

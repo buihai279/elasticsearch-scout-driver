@@ -7,6 +7,7 @@ namespace JeroenG\Explorer\Infrastructure\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use JeroenG\Explorer\Application\IndexAdapterInterface;
+use JeroenG\Explorer\Domain\IndexManagement\AliasedIndexConfiguration;
 use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationInterface;
 use JeroenG\Explorer\Domain\IndexManagement\IndexConfigurationRepositoryInterface;
 
@@ -37,7 +38,7 @@ final class ElasticUpdate extends Command
         IndexConfigurationInterface $indexConfiguration,
         IndexAdapterInterface $indexAdapter
     ): void {
-        if ($indexConfiguration->isAliased()) {
+        if ($indexConfiguration instanceof AliasedIndexConfiguration) {
             $indexAdapter->createNewWriteIndex($indexConfiguration);
         }
 

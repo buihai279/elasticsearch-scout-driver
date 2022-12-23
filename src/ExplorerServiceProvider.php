@@ -41,6 +41,7 @@ class ExplorerServiceProvider extends ServiceProvider
         $this->app->singleton(
             IndexConfigurationRepositoryInterface::class,
             fn() => new ElasticIndexConfigurationRepository(
+
                 config('explorer.indexes') ?? [],
                 config('explorer.prune_old_aliases'),
             )
