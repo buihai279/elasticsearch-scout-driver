@@ -18,7 +18,7 @@
     "require": {
         "php": "^8.2",
         "elasticsearch/elasticsearch": "^8.5.3",
-        "illuminate/support": "^10",
+        "illuminate/support": "^9",
         "laravel/scout": "^9.8.0",
         "webmozart/assert": "^1.11.0"
     },
